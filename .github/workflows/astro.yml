@@ -42,4 +42,4 @@ jobs:
         uses: actions/deploy-pages@v2
         with:
           # GITHUB_TOKEN secret is set up automatically
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
