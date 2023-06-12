@@ -32,8 +32,9 @@ jobs:
 
       - name: Install and Build 🔧
         run: |
-          npm i
-          npm run build  
+          npm ci
+          npm run build 
+          mv dist/* public/
 
       - name: Upload Build Artifact 📦
         uses: actions/upload-artifact@v2
