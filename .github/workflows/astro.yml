@@ -2,7 +2,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main
+      - main  # replace with your default branch if not 'main'
 
 permissions:
   contents: read
@@ -17,10 +17,10 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v2
 
-      - name: Use Node.js 18.x 🕹️
+      - name: Use Node.js 16.x 🕹️
         uses: actions/setup-node@v2
         with:
-          node-version: '18.x'
+          node-version: '16.x'
           
       - name: Cache dependencies ⏲️
         uses: actions/cache@v2
@@ -42,9 +42,6 @@ jobs:
           path: ./public/*
       
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     needs: build
     runs-on: ubuntu-latest
     name: Deploy
@@ -59,7 +56,9 @@ jobs:
           path: ./public
 
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
+        uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: main
+          FOLDER: public
+          CLEAN: true
